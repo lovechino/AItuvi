@@ -1,5 +1,7 @@
 from core.core import build_tuvi_engine
-from llm.prompt import ask_llm
+
+from tuvi_rag import analyze_tuvi
+
 chart =  build_tuvi_engine(
     day=15,
     month=7,
@@ -10,6 +12,8 @@ chart =  build_tuvi_engine(
     nam_xem=2026
 )
 
-analysis = ask_llm(chart_json=chart,nam_xem=2026)
+result = analyze_tuvi(chart_result=chart,year=2026)
+
 print("===== KẾT QUẢ LUẬN GIẢI =====")
-print(analysis)
+
+print(result)

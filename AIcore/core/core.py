@@ -460,16 +460,16 @@ def build_tuvi_engine(day, month, year, hour, minute=0, gender="Nam", nam_xem=No
     }
 
 # ================= DEMO =================
-# if __name__ == "__main__":
-#     chart = build_tuvi_engine(
-#     day=15,
-#     month=7,
-#     year=2006,
-#     hour=8,
-#     minute=40,      # 8h40 vẫn là giờ Thìn
-#     gender="Nam",
-#     nam_xem=2026
-# )
-#     print(json.dumps(chart, ensure_ascii=False, indent=2))
+if __name__ == "__main__":
+    chart = build_tuvi_engine(
+    day=15,
+    month=7,
+    year=2006,
+    hour=8,
+    minute=40,      # 8h40 vẫn là giờ Thìn
+    gender="Nam",
+    nam_xem=2026
+)
+    print(json.dumps(chart, ensure_ascii=False, indent=2))
 
 
