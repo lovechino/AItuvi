@@ -34,6 +34,15 @@ STATIC_QUERY = (
     "tứ hóa, luận hạn, đại vận, tiểu vận"
 )
 
+def json_parser(output: str):
+    try:
+        return json.loads(output)
+    except Exception:
+        return {
+            "error": "Invalid JSON from model",
+            "raw": output
+        }
+
 # STATIC_CONTEXT = retriever.invoke(STATIC_QUERY)
 
 # =========================
@@ -41,8 +50,9 @@ STATIC_QUERY = (
 # =========================
 
 def analyze_tuvi(chart_result: dict, year: int) -> str:
-    return chain.invoke({
+    raw = chain.invoke({
         "context": STATIC_QUERY,
         "chart": json.dumps(chart_result, ensure_ascii=False, indent=2),
         "year": year
     })
+    return json_parser(raw)

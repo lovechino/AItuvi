@@ -4,6 +4,7 @@ from infra.supabase import supabase
 from fastapi.middleware.cors import CORSMiddleware
 from routes import auth,tuvi_charts
 import os
+from Model.tuvi_charts import TuViRequest
 from core.core import build_tuvi_engine
 from tuvi_rag import analyze_tuvi
 from dotenv import load_dotenv
@@ -36,20 +37,24 @@ def health():
     return {"status": "ok"}
 
 
-@app.get("/public/agent")
-def test():
-    chart =  build_tuvi_engine(
-    day=15,
-    month=7,
-    year=2006,
-    hour=8,
-    minute=40,      # 8h40 vẫn là giờ Thìn
-    gender="Nam",
-    nam_xem=2026
+@app.post("/public/agent")
+def analyze_agent(data: TuViRequest):
+    chart = build_tuvi_engine(
+        day=data.day,
+        month=data.month,
+        year=data.year,
+        hour=data.hour,
+        minute=data.minute,
+        gender=data.gender,
+        nam_xem=data.nam_xem
     )
 
-    # result = analyze_tuvi(chart_result=chart,year=2026)
-    result = analyze_tuvi(chart_result=chart,year=2026)
-    return{
-        "result":result
+    result = analyze_tuvi(
+        chart_result=chart,
+        year=data.nam_xem
+    )
+
+    return {
+        "success": True,
+        "data": result
     }
